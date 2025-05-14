@@ -25,7 +25,7 @@ const mainNavItems: NavItem[] = [
 
 const rightNavItems: NavItem[] = [
     {
-        title: 'Repository',
+        title: 'Something',
         href: 'https://github.com/laravel/react-starter-kit',
         icon: Folder,
     },

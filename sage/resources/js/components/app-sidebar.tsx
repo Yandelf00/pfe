@@ -36,7 +36,8 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href="/dashboard" prefetch>
-                                <AppLogo />
+                                {/* <AppLogo /> */}
+                                <h1 class="font-semibold text-[20px] ">SAGE</h1>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -48,7 +49,7 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                {/* <NavFooter items={footerNavItems} className="mt-auto" /> */}
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
