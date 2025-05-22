@@ -12,4 +12,7 @@ Route::middleware(['auth', 'verified', 'role:etudiant'])->group(function () {
         return Inertia::render('students/notes');
     })->name('students.notes');
     Route::get('/students/pedagogie', [StudentController::class, 'pedagogie'])->name('students.pedagogie');
+    Route::get('/students/pedagogie/{module}', [StudentController::class, 'showTypes'])->name('pedagogie.module');
+    Route::get('/students/pedagogie/{module}/{type}', [StudentController::class, 'showDocument'])->name('pedagogie.document');
+    Route::get('/students/notes/{semestre}', [StudentController::class, 'showNote'])->name('note.semestre');
 });

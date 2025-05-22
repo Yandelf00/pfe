@@ -6,7 +6,7 @@ import { Link, usePage } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Contenu Pédagogique',
+        title: 'Modules',
         href: '/students/pedagogie',
     },
 ];
@@ -18,12 +18,12 @@ export default function ContenuPedagogique()
 
     return(
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Contenu Pédagogique" />
+            <Head title="Modules" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {modules.map((mode)=>(
-                    <Link href='/' className="w-full h-10 bg-gray-100 flex cursor-pointer
-                        items-center px-4 rounded-md dark:bg-[#171818]
-                        hover:text-blue-500 transition ease-in-out duration-200">
+                    <Link key={mode.id} href={`/students/pedagogie/${mode.id}`} className="w-full h-10 bg-gray-50 flex cursor-pointer
+                        items-center px-4 rounded-md dark:bg-[#171818] shadow-md
+                        hover:text-green-700 transition ease-in-out duration-200">
                         { mode.nom }
                     </Link>
                 ))}

@@ -1,10 +1,10 @@
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-student';
+import { NavAdmin } from '@/components/nav-admin';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, BookCopy, GraduationCap, Calendar, BookX} from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, BookCopy, UserRoundCog } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -14,29 +14,14 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Pédagogie',
-        href: '/students/pedagogie',
-        icon: BookCopy,
-    },
-    {
-        title: 'Notes',
-        href: '/students/notes',
-        icon: GraduationCap,
-    },
-    {
-        title: 'Calendrier',
-        href: '/dashboard',
-        icon: Calendar,
-    },
-    {
-        title: 'Absences',
-        href: '/dashboard',
-        icon: BookX,
+        title: 'gestion utilisateurs',
+        href: '/admins/type-utilisateur',
+        icon: UserRoundCog,
     },
 ];
 
 
-export function AppStudentSidebar() {
+export function AppAdminSidebar() {
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -57,7 +42,7 @@ export function AppStudentSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavUser />
+                <NavAdmin />
             </SidebarFooter>
         </Sidebar>
     );

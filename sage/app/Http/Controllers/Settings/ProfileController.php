@@ -25,6 +25,17 @@ class ProfileController extends Controller
     }
 
     /**
+     * Show the student's profile settings page.
+     */
+    public function editStudent(Request $request): Response
+    {
+        return Inertia::render('students/settings/profile', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => $request->session()->get('status'),
+        ]);
+    }
+
+    /**
      * Update the user's profile settings.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse

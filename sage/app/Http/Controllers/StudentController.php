@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Module;
 use App\Models\Inscription;
 use App\Models\Etudiant;
+use App\Models\Document;
+use App\Models\Evaluation;
 
 class StudentController extends Controller
 {
@@ -36,4 +38,59 @@ class StudentController extends Controller
             'modules' => $modules,
         ]);
     }
+
+    public function showTypes(Module $module)
+    {
+        return Inertia::render('students/module-types', [
+            'module' => $module,
+        ]);
+    }
+
+    public function showDocument(Module $module, $type)
+    {
+        $documents = $module->documents()
+                ->where('type', $type)
+                ->get();
+        return Inertia::render('students/module-content', [
+            'module' => $module,
+            'type' => $type,
+            'documents' => $documents,
+        ]);
+    }
+
+    //
+    public function showNote($semestre)
+    {
+        $user = Auth::user();
+        $etudiant = $user->profile;
+
+        if (!$etudiant || !($etudiant instanceof Etudiant)) {
+            abort(403, 'Unauthorized');
+        }
+        //retrieves the modules depending on the semester
+        $modules = Module::where('semestre', $semestre)->get();
+
+        //takes just the module id
+        $moduleIds = $modules->pluck('id');
+
+        //retrives evaluations
+        $evaluations = Evaluation::with('module')
+            ->whereIn('module_id', $moduleIds)
+            ->where('etudiant_id', $etudiant->id)
+            ->get();
+
+        // Format evaluations to include module name
+        $results = $evaluations->map(function ($eval) {
+            return [
+                'module' => $eval->module->nom,
+                'note' => $eval->note,
+            ];
+        });
+
+        return Inertia::render('students/semestre-note', [
+            'results'=>$results,
+        ]);
+
+    }
+
 }

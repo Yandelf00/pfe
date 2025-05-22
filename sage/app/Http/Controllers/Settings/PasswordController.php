@@ -21,6 +21,14 @@ class PasswordController extends Controller
     }
 
     /**
+     * Show the student's password settings page.
+     */
+    public function editStudent(): Response
+    {
+        return Inertia::render('students/settings/password');
+    }
+
+    /**
      * Update the user's password.
      */
     public function update(Request $request): RedirectResponse
