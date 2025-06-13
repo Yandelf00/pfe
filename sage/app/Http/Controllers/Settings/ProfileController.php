@@ -36,6 +36,17 @@ class ProfileController extends Controller
     }
 
     /**
+     * Show the admin's profile settings page.
+     */
+    public function editAdmin(Request $request): Response
+    {
+        return Inertia::render('admins/settings/profile', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => $request->session()->get('status'),
+        ]);
+    }
+
+    /**
      * Update the user's profile settings.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse

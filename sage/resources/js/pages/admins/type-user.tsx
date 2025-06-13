@@ -21,7 +21,7 @@ export default function TypeUser()
                         hover:text-green-700 transition ease-in-out duration-200">
                     Chef de département
                 </Link>
-                <Link className="w-full h-10 bg-gray-50 flex cursor-pointer
+                <Link href='/admins/enseignants' className="w-full h-10 bg-gray-50 flex cursor-pointer
                         items-center px-4 rounded-md dark:bg-[#171818] shadow-md
                         hover:text-green-700 transition ease-in-out duration-200">
                     Enseignants

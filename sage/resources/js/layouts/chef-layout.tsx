@@ -1,4 +1,4 @@
-import AppLayoutTemplate from '@/layouts/app/admin-sidebar-layout';
+import AppLayoutTemplate from '@/layouts/app/chef-sidebar-layout';
 import { type BreadcrumbItem } from '@/types';
 import { type ReactNode } from 'react';
 import { Toaster } from "sonner";

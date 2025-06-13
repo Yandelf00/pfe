@@ -29,6 +29,14 @@ class PasswordController extends Controller
     }
 
     /**
+     * Show the admin's password settings page.
+     */
+    public function editAdmin(): Response
+    {
+        return Inertia::render('admins/settings/password');
+    }
+
+    /**
      * Update the user's password.
      */
     public function update(Request $request): RedirectResponse

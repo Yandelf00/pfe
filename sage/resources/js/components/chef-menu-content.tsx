@@ -8,7 +8,7 @@ interface UserMenuContentProps {
     user: User;
 }
 
-export function AdminMenuContent({ user }: UserMenuContentProps) {
+export function ChefMenuContent({ user }: UserMenuContentProps) {
     const cleanup = useMobileNavigation();
 
     const handleLogout = () => {

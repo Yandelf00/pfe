@@ -9,6 +9,11 @@ use App\Models\Emploi;
 
 class DepartmentChief extends Model
 {
+    //attributes that are mass fillable
+    protected $fillable = [
+        'mandat',
+    ];
+
     public function user()
     {
         return $this->morphOne(User::class, 'profile');

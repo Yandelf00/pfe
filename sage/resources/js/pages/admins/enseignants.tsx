@@ -8,229 +8,72 @@ import {
   DialogClose,
   DialogDescription,
 } from "@/components/ui/dialog";
+import SearchInput from '@/components/search-input';
+import NoData from '@/components/no-data';
 import AppLayout from '@/layouts/admin-layout';
 import { type BreadcrumbItem } from '@/types';
 import { type User} from '@/types';
-import { Head, Link, usePage, useForm, router } from '@inertiajs/react';
-import { Search, Trash, Pencil} from 'lucide-react';
+import { Head, usePage, useForm, router } from '@inertiajs/react';
 import { useState, useRef } from 'react';
 import { toast } from "sonner";
+import { Search, Trash, Pencil} from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Chefs de departements',
-        href: '/admin/chef-departement',
+        title: 'Enseignants',
+        href: '/admins/enseignants',
     },
 ];
 
-export default function ChefDepartement()
+export default function Enseignants()
 {
-    const { data, setData, post, processing, errors } = useForm({
-        file: null as File | null,
-    });
-    const [isList , setIsList] = useState(true);
-    const [search, setSearch] = useState("");
+    const [isList, setIsList] = useState(true)
+    const [search, setSearch] = useState("")
     const { props } = usePage();
-    const chefs = props.chefs;
-
-    function handleSubmit(e : React.FormEvent) {
-        e.preventDefault();
-        post('/admins/chef-departement/importer', {
-            onSuccess: () => toast.success('Import réussi!'),
-        });
-    }
+    const enseignants = props.enseignants;
 
     return(
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl ">
                 <div className="w-full flex flex-row justify-between p-4">
-                    <SearchInput value={search} onChange={setSearch} />
+                    <SearchInput />
                     <div className="flex flex-row gap-4">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <button className="bg-black h-8 text-white px-4 rounded w-24 cursor-pointer
-                            dark:bg-white dark:text-black">
-                                Importer
-                            </button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>Importer les chefs de departement</DialogTitle>
-                              <DialogDescription>
-                              </DialogDescription>
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                    <input
-                                        type="file"
-                                        accept=".xlsx,.xls,.csv"
-                                        onChange={(e) => setData('file', e.target.files?.[0] || null)}
-                                        className="block w-full text-sm text-gray-500
-                                        file:mr-4 file:py-2 file:px-4
-                                        file:rounded file:border-0
-                                        file:text-sm file:font-semibold
-                                        file:bg-black file:text-white"
-                                    />
-                                    {errors.file && <p className="text-red-500">{errors.file}</p>}
-                                    <button
-                                        type="submit"
-                                        disabled={processing}
-                                        className="bg-black text-white px-4 py-2 rounded disabled:opacity-50"
-                                    >
-                                        {processing ? 'Importation...' : 'Importer'}
-                                    </button>
-                                </form>
-                            </DialogHeader>
-                          </DialogContent>
-                        </Dialog>
+                        <ImportEnseignants/>
                         {isList ? (
                             <button onClick={()=>setIsList(false)} className="h-8 cursor-pointer text-white w-24 px-4 rounded bg-black dark:bg-white dark:text-black">
                                 Ajouter
                             </button>
-                         ):(
-                            <button onClick={()=>setIsList(true)} className="h-8 w-24 cursor-pointer text-white px-4 bg-black rounded dark:bg-white dark:text-black">
+                        ):(
+                            <button onClick={()=>setIsList(true)} className="h-8 cursor-pointer text-white w-24 px-4 rounded bg-black dark:bg-white dark:text-black">
                                 Liste
                             </button>
                         )}
                     </div>
                 </div>
+                <div className="w-full h-full">
                 {isList === true ? (
-                    chefs.length <= 0 ? (
-                        <NoData/>
+                    enseignants.length <= 0 ? (
+                        <NoData text="aucun enseignant à afficher"/>
                     ) : (
                         <div className="w-full h-full">
-                                <AfficherChefDep search = {search}/>
+                            <AfficherEnseignant search={search}/>
                         </div>
                     )
                 ):(
                     <div className="w-full h-full px-4">
-                        <AjouterChefDep/>
+                        <AjouterEnseignant/>
                     </div>
                 )}
+                </div>
             </div>
         </AppLayout>
     )
 }
 
+//modifier l'enseignant
 
-// 'name',
-// 'prenom',
-// 'email',
-// 'password',
-// 'departement',
-// 'photo',
-// 'number',
-// 'address',
-// 'date_naissance',
-// 'cin',
-// 'profile_id',
-// 'profile_type',
-// 'mandat'
-
-function AfficherChefDep({ search } : { search : string })
-{
-    const { props } = usePage();
-    const [open, setOpen] = useState(false);
-    const closeDialog = useRef<HTMLButtonElement>(null);
-    const chefs = props.chefs;
-
-    //filter function for the search
-    const filteredChefs = chefs.filter((chef) => {
-        const fullText = `${chef.name} ${chef.prenom} ${chef.email} ${chef.departement} ${chef.cin} ${chef.profile.mandat}`.toLowerCase();
-        return fullText.includes(search.toLowerCase());
-    });
-
-    //function that deletes the desired chef
-    function deleteDepartmentChief(chefId : number){
-        router.delete(route('admins.deleteChefDepartment', chefId), {
-            preserveScroll: true,
-            onSuccess: () => {
-                // optional: show success toast or alert
-                toast.success("Chef de departement supprimé !")
-                closeDialog.current?.click();
-            },
-        });
-    }
-    return (
-        <section className="w-full py-6">
-                <div className="overflow-x-auto">
-                    <table className="min-w-full table-auto border-collapse">
-                        <thead className="bg-gray-100 dark:bg-[#171818] dark:text-gray-100 text-gray-700 rounded text-left">
-                            <tr>
-                                <th className="p-3">Nom</th>
-                                <th className="p-3">Prénom</th>
-                                <th className="p-3">Email</th>
-                                <th className="p-3">Département</th>
-                                <th className="p-3">CIN</th>
-                                <th className="p-3">Mandat</th>
-                                <th className="p-3 text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredChefs.map((chef, index) => (
-                                <tr key={index} className="border-b hover:bg-gray-50 transition ease-in-out duration-200 dark:hover:bg-[#171818]">
-                                    <td className="p-3">{chef.name}</td>
-                                    <td className="p-3">{chef.prenom}</td>
-                                    <td className="p-3">{chef.email}</td>
-                                    <td className="p-3">{chef.departement}</td>
-                                    <td className="p-3">{chef.cin}</td>
-                                    <td className="p-3">{chef.profile.mandat}</td>
-                                    <td className="p-3 gap-4 flex flex-row items-center justify-center ">
-                                        <Dialog>
-                                          <DialogTrigger asChild>
-                                            <Trash className="cursor-pointer
-                                            size-4 hover:text-red-600 transition ease-in-out duration-200"/>
-                                          </DialogTrigger>
-                                          <DialogContent>
-                                            <DialogHeader>
-                                              <DialogTitle>Confirmation</DialogTitle>
-                                              <DialogDescription>
-                                              </DialogDescription>
-                                                <div className="w-full h-full flex flex-col gap-4">
-                                                    <p className="">
-                                                        Est ce que vous êtes sur de vouloir supprimer le chef de departement ?
-                                                    </p>
-                                                    <div className="w-full flex flex-row justify-end items-center gap-3">
-                                                        <DialogClose asChild>
-                                                          <button ref={closeDialog} className="bg-gray-200 text-black px-2 py-1 w-24 cursor-pointer rounded-md">
-                                                            Annuler
-                                                          </button>
-                                                        </DialogClose>
-                                                        <button onClick={()=>deleteDepartmentChief(chef.id)} className="bg-red-400 text-white cursor-pointer w-24 px-2 py-1 rounded-md">
-                                                            Supprimer
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </DialogHeader>
-                                          </DialogContent>
-                                        </Dialog>
-
-                                        <Dialog >
-                                          <DialogTrigger asChild>
-                                            <Pencil className="cursor-pointer size-4 hover:text-green-600 transition ease-in-out duration-200" />
-                                          </DialogTrigger>
-                                          <DialogContent className="w-[60rem] max-w-[90vw]">
-                                            <DialogHeader>
-                                              <DialogTitle >Modifier</DialogTitle>
-                                              <DialogDescription>
-                                              </DialogDescription>
-                                                <div className="h-[31rem] w-full">
-                                                    <ModifierChefDep chef= {chef}/>
-                                                </div>
-                                            </DialogHeader>
-                                          </DialogContent>
-                                        </Dialog>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-            </div>
-        </section>
-    )
-
-}
-
-function ModifierChefDep({ chef } : { chef : User})
+function ModifierEnseignant({ chef } : { chef : User})
 {
     const { data, setData, reset, processing, errors } = useForm({
     name: chef.name,
@@ -241,15 +84,15 @@ function ModifierChefDep({ chef } : { chef : User})
     address: chef.address,
     date_naissance: chef.date_naissance,
     cin: chef.cin,
-    mandat: chef.profile.mandat,
+    speciality: chef.profile.speciality,
     });
 
     function handleSubmit(e : React.FormEvent)
     {
         e.preventDefault();
-        router.patch(route('admins.updateChefDepartement', chef.id), data, {
+        router.patch(route('admins.updateEnseignant', chef.id), data, {
             onSuccess : () => {
-                toast.success("Chef de departement modifié!")
+                toast.success("Enseignant modifié!")
             },
             onError: (err) => {
               console.error('Validation errors:', err);
@@ -368,15 +211,15 @@ function ModifierChefDep({ chef } : { chef : User})
                     </div>
                     <div className="flex flex-col gap-1 w-1/2">
                         <div className="flex flex-row w-full justify-between">
-                            <h2>Mandat</h2>
-                            {errors.mandat && <p className="text-red-500 text-[10px]">{errors.mandat}</p>}
+                            <h2>Spécialité</h2>
+                            {errors.speciality && <p className="text-red-500 text-[10px]">{errors.speciality}</p>}
                         </div>
                         <input
                             type="text"
-                            name="mandat"
-                            value={data.mandat}
-                            onChange={(e) => setData('mandat', e.target.value)}
-                            placeholder="Entrez le mandat"
+                            name="speciality"
+                            value={data.speciality}
+                            onChange={(e) => setData('speciality', e.target.value)}
+                            placeholder="Entrez la spécialité"
                             className="w-full border p-2 rounded"
                         />
                     </div>
@@ -411,7 +254,141 @@ function ModifierChefDep({ chef } : { chef : User})
     )
 }
 
-function AjouterChefDep()
+
+//afficher les enseignants
+function AfficherEnseignant({ search } : { search : string })
+{
+    const { props } = usePage();
+    const [open, setOpen] = useState(false);
+    const closeDialog = useRef<HTMLButtonElement>(null);
+    const enseignants = props.enseignants;
+
+    //filter function for the search
+    const filteredEnseignants= enseignants.filter((enseignant) => {
+        const fullText = `${enseignant.name} ${enseignant.prenom} ${enseignant.email} ${enseignant.departement} ${enseignant.cin} ${enseignant.profile.speciality}`.toLowerCase();
+        return fullText.includes(search.toLowerCase());
+    });
+
+    //function that deletes the desired chef
+    function deleteEnseignant(profId : number){
+        console.log("im here")
+        router.delete(route('admins.deleteEnseignant', profId), {
+            preserveScroll: true,
+            onSuccess: () => {
+                // optional: show success toast or alert
+                toast.success("Enseignant supprimé avec succès!")
+                closeDialog.current?.click();
+            },
+        });
+    }
+    return (
+        <section className="w-full py-6">
+                <div className="overflow-x-auto">
+                    <table className="min-w-full table-auto border-collapse">
+                        <thead className="bg-gray-100 dark:bg-[#171818] dark:text-gray-100 text-gray-700 rounded text-left">
+                            <tr>
+                                <th className="p-3">Nom</th>
+                                <th className="p-3">Prénom</th>
+                                <th className="p-3">Email</th>
+                                <th className="p-3">Département</th>
+                                <th className="p-3">CIN</th>
+                                <th className="p-3">Spécialité</th>
+                                <th className="p-3 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredEnseignants.map((enseignant, index) => (
+                                <tr key={index} className="border-b hover:bg-gray-50 transition ease-in-out duration-200 dark:hover:bg-[#171818]">
+                                    <td className="p-3">{enseignant.name}</td>
+                                    <td className="p-3">{enseignant.prenom}</td>
+                                    <td className="p-3">{enseignant.email}</td>
+                                    <td className="p-3">{enseignant.departement}</td>
+                                    <td className="p-3">{enseignant.cin}</td>
+                                    <td className="p-3">{enseignant.profile.speciality}</td>
+                                    <td className="p-3 gap-4 flex flex-row items-center justify-center ">
+                                        <Dialog>
+                                          <DialogTrigger asChild>
+                                            <Trash className="cursor-pointer
+                                            size-4 hover:text-red-600 transition ease-in-out duration-200"/>
+                                          </DialogTrigger>
+                                          <DialogContent>
+                                            <DialogHeader>
+                                              <DialogTitle>Confirmation</DialogTitle>
+                                              <DialogDescription>
+                                              </DialogDescription>
+                                                <div className="w-full h-full flex flex-col gap-4">
+                                                    <p className="">
+                                                        Est ce que vous êtes sur de vouloir supprimer le chef de departement ?
+                                                    </p>
+                                                    <div className="w-full flex flex-row justify-end items-center gap-3">
+                                                        <DialogClose asChild>
+                                                          <button ref={closeDialog} className="bg-gray-200 text-black px-2 py-1 w-24 cursor-pointer rounded-md">
+                                                            Annuler
+                                                          </button>
+                                                        </DialogClose>
+                                                        <button onClick={()=>deleteEnseignant(enseignant.id)} className="bg-red-400 text-white cursor-pointer w-24 px-2 py-1 rounded-md">
+                                                            Supprimer
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </DialogHeader>
+                                          </DialogContent>
+                                        </Dialog>
+
+                                        <Dialog >
+                                          <DialogTrigger asChild>
+                                            <Pencil className="cursor-pointer size-4 hover:text-green-600 transition ease-in-out duration-200" />
+                                          </DialogTrigger>
+                                          <DialogContent className="w-[60rem] max-w-[90vw]">
+                                            <DialogHeader>
+                                              <DialogTitle >Modifier</DialogTitle>
+                                              <DialogDescription>
+                                              </DialogDescription>
+                                                <div className="h-[31rem] w-full">
+                                                    <ModifierEnseignant chef = {enseignant}/>
+                                                </div>
+                                            </DialogHeader>
+                                          </DialogContent>
+                                        </Dialog>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+            </div>
+        </section>
+    )
+
+}
+
+//importer les enseignants en utilisant excel files
+function ImportEnseignants()
+{
+    return(
+        <div>
+            <Dialog>
+              <DialogTrigger asChild>
+                <button className="bg-black h-8 text-white px-4 rounded w-24 cursor-pointer
+                dark:bg-white dark:text-black">
+                    Importer
+                </button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Importer les enseignants</DialogTitle>
+                  <DialogDescription>
+                        say something here
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
+        </div>
+    )
+}
+
+
+// form that adds enseignant
+function AjouterEnseignant()
 {
     const { data, setData, post, reset, processing, errors } = useForm({
     name: '',
@@ -423,16 +400,16 @@ function AjouterChefDep()
     address: '',
     date_naissance: '',
     cin: '',
-    mandat: '',
+    speciality: '',
     });
 
     function handleSubmit(e : React.FormEvent)
     {
         e.preventDefault();
-        post('/admins/chef-departement/create', {
+        post('/admins/enseignants/create', {
             onSuccess : () => {
                 reset();
-                toast.success("Chef de departement ajouté!")
+                toast.success("Enseignant ajouté!")
             },
         });
     }
@@ -547,15 +524,15 @@ function AjouterChefDep()
                     </div>
                     <div className="flex flex-col gap-1 w-1/2">
                         <div className="flex flex-row w-full justify-between">
-                            <h2>Mandat</h2>
-                            {errors.mandat && <p className="text-red-500 text-[10px]">{errors.mandat}</p>}
+                            <h2>Specialité</h2>
+                            {errors.speciality && <p className="text-red-500 text-[10px]">{errors.speciality}</p>}
                         </div>
                         <input
                             type="text"
-                            name="mandat"
-                            value={data.mandat}
-                            onChange={(e) => setData('mandat', e.target.value)}
-                            placeholder="Entrez le mandat"
+                            name="speciality"
+                            value={data.speciality}
+                            onChange={(e) => setData('speciality', e.target.value)}
+                            placeholder="Entrez la spécialité"
                             className="w-full border p-2 rounded"
                         />
                     </div>
@@ -603,31 +580,3 @@ function AjouterChefDep()
     )
 }
 
-type SearchInputProps = {
-    value : string;
-    onChange : (value : string) => void;
-}
-
-function SearchInput({value, onChange} : SearchInputProps)
-{
-    return(
-        <div className="lg:w-[500px] flex flex-row justify-between
-            h-8 rounded-sm items-center focus-within:ring-1 gap-2 border dark:border-white border-1 border-black
-            px-2">
-            <Search className="size-4" />
-            <input type="text" name="" id="" className="w-full h-full
-            focus:outline-none focus:ring-0 " value={value}
-            onChange = {(e) => onChange(e.target.value)}>
-            </input>
-        </div>
-    )
-}
-
-function NoData()
-{
-    return(
-        <section className="h-full w-full flex justify-center items-center">
-            <p className="font-semibold text-gray-700">Aucune information à afficher</p>
-        </section>
-    )
-}

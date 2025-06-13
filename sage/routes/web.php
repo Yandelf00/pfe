@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+require __DIR__.'/admin-settings.php';
 require __DIR__.'/etudiant-settings.php';
 require __DIR__.'/etudiant.php';
 require __DIR__.'/professor.php';

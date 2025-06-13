@@ -9,6 +9,11 @@ use App\Models\Document;
 
 class Professor extends Model
 {
+
+    protected $fillable = [
+        'speciality',
+    ];
+
     public function user()
     {
         return $this->morphOne(User::class, 'profile');
