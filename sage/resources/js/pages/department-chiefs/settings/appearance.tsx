@@ -4,8 +4,8 @@ import AppearanceTabs from '@/components/appearance-tabs';
 import HeadingSmall from '@/components/heading-small';
 import { type BreadcrumbItem } from '@/types';
 
-import AppLayout from '@/layouts/admin-layout';
-import SettingsLayout from '@/layouts/settings/admin-layout';
+import AppLayout from '@/layouts/chef-layout';
+import SettingsLayout from '@/layouts/settings/chef-layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -21,7 +21,7 @@ export default function Appearance() {
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title="Paramètres d'apparence" description="Changez l'apparence" />
+                    <HeadingSmall title="Appearance settings" description="Update your account's appearance settings" />
                     <AppearanceTabs />
                 </div>
             </SettingsLayout>

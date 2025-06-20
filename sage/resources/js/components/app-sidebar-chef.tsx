@@ -6,8 +6,9 @@ import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid,
 BookCopy, UserRoundCog, GraduationCap, User, UserPlus,
-CalendarDays, Calendar, Megaphone, TriangleAlert} from 'lucide-react';
+CalendarDays, Calendar, Megaphone, TriangleAlert, BookMarked} from 'lucide-react';
 import AppLogo from './app-logo';
+
 
 const mainNavItems: NavItem[] = [
     {
@@ -17,23 +18,23 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Gestion Etudiants',
-        href: '/admins/type-utilisateur',
+        href: '/department-chiefs/gestion_etudiants',
         icon: GraduationCap,
     },
     {
         title: 'Gestion Enseignants',
-        href: '/admins/type-utilisateur',
+        href: '/department-chiefs/gestion_enseignants',
         icon: User,
     },
     {
-        title: 'Création Utilisateur',
-        href: '/admins/type-utilisateur',
-        icon: UserPlus,
+        title: 'Emploi du Temps',
+        href: '/department-chiefs/emploi_de_temps',
+        icon: CalendarDays,
     },
     {
-        title: 'Emploi du Temps',
-        href: '/admins/type-utilisateur',
-        icon: CalendarDays,
+        title: 'Modules',
+        href: '/department-chiefs/modules',
+        icon: BookMarked,
     },
     {
         title: 'Calendrier',

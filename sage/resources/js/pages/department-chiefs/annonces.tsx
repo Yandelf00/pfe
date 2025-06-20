@@ -87,8 +87,7 @@ export default function ChefAnnonce()
                                                     <DeleteModal tableId={annonce.id} deleteTable={deleteAnnonce} />
                                                 </DialogContent>
                                             </Dialog>
-                                            <Pencil className="size-4 cursor-pointer hover:text-green-600
-                                            transition-all ease-in-out duration-200"/>
+                                            <ModifierAnnonce annonce = { annonce }/>
                                         </div>
                                     </div>
                                 </div>
@@ -218,15 +217,73 @@ function AjouterAnnonce() {
 }
 
 
+function ModifierAnnonce({ annonce }: { annonce: any }) {
+    const { data, setData, reset, put, processing, errors } = useForm({
+        title: annonce.titre || '',
+        description: annonce.contenu || '',
+        attachment: null
+    });
 
+    const closeDialog = useRef<HTMLDivElement>(null);
 
+    function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
 
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('description', data.description);
+        if (data.attachment) formData.append('attachment', data.attachment);
 
+        put(`/department-chiefs/annonces/${annonce.id}`, {
+            preserveScroll: true,
+            data: formData,
+            forceFormData: true,
+            onSuccess: () => {
+                toast.success('Annonce modifiée !');
+                closeDialog.current?.click();
+            },
+        });
+    }
 
-
-
-
-
-
-
-
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <Pencil className="size-4 cursor-pointer hover:text-green-600
+                transition-all ease-in-out duration-200"/>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Modifier l’annonce</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                    <input
+                        type="text"
+                        value={data.title}
+                        onChange={(e) => setData('title', e.target.value)}
+                        className="border p-1 rounded"
+                    />
+                    <textarea
+                        value={data.description}
+                        onChange={(e) => setData('description', e.target.value)}
+                        className="border p-1 rounded resize-none h-24"
+                    />
+                    <input
+                        type="file"
+                        onChange={(e) => setData('attachment', e.target.files?.[0] || null)}
+                        className="border p-1 rounded"
+                    />
+                    <button
+                        type="submit"
+                        disabled={processing}
+                        className="bg-purple-600 text-white py-1 rounded"
+                    >
+                        Sauvegarder
+                    </button>
+                </form>
+                <DialogClose asChild>
+                    <div ref={closeDialog} className="hidden" />
+                </DialogClose>
+            </DialogContent>
+        </Dialog>
+    );
+}

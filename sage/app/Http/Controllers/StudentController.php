@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Module;
 use App\Models\Inscription;
+use App\Models\Annonce;
 use App\Models\Etudiant;
 use App\Models\Document;
 use App\Models\Evaluation;
@@ -90,7 +91,13 @@ class StudentController extends Controller
         return Inertia::render('students/semestre-note', [
             'results'=>$results,
         ]);
+    }
 
+    public function annonces() {
+        $annonces = Annonce::orderBy('created_at', 'desc')->take(5)->get();
+        return Inertia::render('students/annonces', [
+            "annonces" => $annonces,
+        ]);
     }
 
 }

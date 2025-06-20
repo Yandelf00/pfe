@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('cne', 20)->unique();
             $table->string('groupe_td', 20);
             $table->foreignId('prom_id')
-                  ->nullable();
+                  ->nullable()
                   ->constrained('promotions')
                   ->onDelete('set null');
             $table->timestamps();

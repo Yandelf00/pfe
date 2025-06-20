@@ -8,7 +8,7 @@ interface UserMenuContentProps {
     user: User;
 }
 
-export function ChefMenuContent({ user }: UserMenuContentProps) {
+export function EnseignantMenuContent({ user }: UserMenuContentProps) {
     const cleanup = useMobileNavigation();
 
     const handleLogout = () => {
@@ -26,7 +26,7 @@ export function ChefMenuContent({ user }: UserMenuContentProps) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
-                    <Link className="block w-full" href={route('department-chiefs.profile.edit')} as="button" prefetch onClick={cleanup}>
+                    <Link className="block w-full" href={route('enseignant.profile.edit')} as="button" prefetch onClick={cleanup}>
                         <Settings className="mr-2" />
                         Settings
                     </Link>

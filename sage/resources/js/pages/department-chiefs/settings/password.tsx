@@ -1,6 +1,6 @@
 import InputError from '@/components/input-error';
-import AppLayout from '@/layouts/admin-layout';
-import SettingsLayout from '@/layouts/settings/admin-layout';
+import AppLayout from '@/layouts/chef-layout';
+import SettingsLayout from '@/layouts/settings/chef-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react';
@@ -54,11 +54,11 @@ export default function Password() {
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title="Changez votre mot de passe" description="Assurez vous que votre compte utilise un mot de passe securisé" />
+                    <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
 
                     <form onSubmit={updatePassword} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="current_password">Mot de passe actuel</Label>
+                            <Label htmlFor="current_password">Current password</Label>
 
                             <Input
                                 id="current_password"
@@ -68,14 +68,14 @@ export default function Password() {
                                 type="password"
                                 className="mt-1 block w-full"
                                 autoComplete="current-password"
-                                placeholder="mot de passe actuel"
+                                placeholder="Current password"
                             />
 
                             <InputError message={errors.current_password} />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password">Nouveau mot de passe</Label>
+                            <Label htmlFor="password">New password</Label>
 
                             <Input
                                 id="password"
@@ -85,14 +85,14 @@ export default function Password() {
                                 type="password"
                                 className="mt-1 block w-full"
                                 autoComplete="new-password"
-                                placeholder="Nouveau mot de passe"
+                                placeholder="New password"
                             />
 
                             <InputError message={errors.password} />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password_confirmation">confirmez votre mot de passe</Label>
+                            <Label htmlFor="password_confirmation">Confirm password</Label>
 
                             <Input
                                 id="password_confirmation"
@@ -101,14 +101,14 @@ export default function Password() {
                                 type="password"
                                 className="mt-1 block w-full"
                                 autoComplete="new-password"
-                                placeholder="Confirmez votre mot de passe"
+                                placeholder="Confirm password"
                             />
 
                             <InputError message={errors.password_confirmation} />
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <Button disabled={processing}>Enregistrez le mot de passe</Button>
+                            <Button disabled={processing}>Save password</Button>
 
                             <Transition
                                 show={recentlySuccessful}

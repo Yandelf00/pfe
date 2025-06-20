@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Annonce;
+use App\Models\Professor;
+use App\Models\User;
+use App\Models\Etudiant;
+use App\Models\Promotion;
 
 class ChefController extends Controller
 {
@@ -63,6 +67,40 @@ class ChefController extends Controller
     //fonction pour afficher la page principal calendrier
     public function calendrier() {
         return Inertia::render('department-chiefs/calendar');
+    }
+
+    //--------------Gestion Enseignant--------------//
+    public function gestionEnseignants() {
+        $enseignants = User::where('profile_type', Professor::class)->with('profile')->get();
+        return Inertia::render('department-chiefs/g-enseignants', [
+            'enseignants' => $enseignants,
+        ]);
+    }
+
+    //--------------Gestion Etudiant--------------//
+    public function gestionEtudiants() {
+        $etudiants = User::where('profile_type', Etudiant::class)->with('profile')->get();
+        $promotions = Promotion::get();
+
+        return Inertia::render('department-chiefs/g-etudiants', [
+            'etudiants' => $etudiants,
+            'promotions' => $promotions,
+        ]);
+    }
+
+    //--------------Emploi de temps--------------//
+    public function emploiTemps() {
+        return Inertia::render('department-chiefs/emploi_temps');
+    }
+
+    //--------------notifications--------------//
+    public function notifications() {
+        return Inertia::render('department-chiefs/notifications');
+    }
+
+    //--------------modules--------------//
+    public function modules() {
+        return Inertia::render('department-chiefs/modules');
     }
 
 }

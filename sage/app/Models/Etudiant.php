@@ -10,6 +10,15 @@ use App\Models\Absence;
 
 class Etudiant extends Model
 {
+
+    //attributes that are mass fillable
+    protected $fillable = [
+        'numt',
+        'cne',
+        'groupe_td',
+        'prom_id',
+    ];
+
     public function user()
     {
         return $this->morphOne(User::class, 'profile');

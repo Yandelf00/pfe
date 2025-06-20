@@ -37,6 +37,22 @@ class PasswordController extends Controller
     }
 
     /**
+     * Show the admin's password settings page.
+     */
+    public function editDepChief(): Response
+    {
+        return Inertia::render('department-chiefs/settings/password');
+    }
+
+    /**
+     * Show the admin's password settings page.
+     */
+    public function editEnseignant(): Response
+    {
+        return Inertia::render('professors/settings/password');
+    }
+
+    /**
      * Update the user's password.
      */
     public function update(Request $request): RedirectResponse

@@ -9,13 +9,13 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AppLayout from '@/layouts/admin-layout';
-import SettingsLayout from '@/layouts/settings/admin-layout';
+import AppLayout from '@/layouts/enseignant-layout';
+import SettingsLayout from '@/layouts/settings/enseignant-layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Profile settings',
-        href: 'students/settings/profile',
+        href: 'department-chiefs/settings/profile',
     },
 ];
 
@@ -46,11 +46,11 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title="Informations de profile" description="Changez votre nom et votre adresse email" />
+                    <HeadingSmall title="Profile information" description="Update your name and email address" />
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="name">Nom</Label>
+                            <Label htmlFor="name">Name</Label>
 
                             <Input
                                 id="name"
@@ -66,7 +66,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="email">Adresse email</Label>
+                            <Label htmlFor="email">Email address</Label>
 
                             <Input
                                 id="email"
@@ -105,7 +105,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                         )}
 
                         <div className="flex items-center gap-4">
-                            <Button disabled={processing}>Enregistrer</Button>
+                            <Button disabled={processing}>Save</Button>
 
                             <Transition
                                 show={recentlySuccessful}

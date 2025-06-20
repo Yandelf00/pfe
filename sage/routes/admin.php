@@ -38,4 +38,16 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
     //route to delete the professors
     Route::delete('/admins/enseignants/{prof}', [AdminController::class, 'deleteEnseignant'])->name('admins.deleteEnseignant');
+
+    //route to get the students
+    Route::get('/admins/etudiants', [AdminController::class, 'etudiants'])->name('admins.etudiants');
+
+    //route to add the students
+    Route::post('/admins/etudiants', [AdminController::class, 'addEtudiant'])->name('admins.addEtudiant');
+
+    //route to update
+    Route::put('/admins/etudiants/{user}', [AdminController::class, 'updateEtudiant'])->name('admins.updateEtudiant');
+
+    //route to delete student
+    Route::delete('/admins/etudiants/{etudiant}', [AdminController::class, 'deleteEtudiant'])->name('admins.deleteEtudiant');
 });

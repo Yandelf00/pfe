@@ -1,10 +1,12 @@
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-student';
+import { NavEnseignant} from '@/components/nav-enseignant';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Megaphone, Folder, LayoutGrid, BookCopy, GraduationCap, Calendar, BookX} from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid,
+BookCopy, UserRoundCog, GraduationCap, User, UserPlus,
+CalendarDays, Calendar, Megaphone, TriangleAlert} from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -14,34 +16,39 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Pédagogie',
-        href: '/students/pedagogie',
-        icon: BookCopy,
-    },
-    {
-        title: 'Notes',
-        href: '/students/notes',
+        title: 'sdqslmkdjfmslj ml',
+        href: '/department-chiefs/gestion_etudiants',
         icon: GraduationCap,
     },
     {
+        title: 'Gestion Enseignants',
+        href: '/department-chiefs/gestion_enseignants',
+        icon: User,
+    },
+    {
+        title: 'Emploi du Temps',
+        href: '/department-chiefs/emploi_de_temps',
+        icon: CalendarDays,
+    },
+    {
         title: 'Calendrier',
-        href: '/dashboard',
+        href: '/department-chiefs/calendrier',
         icon: Calendar,
     },
     {
-        title: 'Absences',
-        href: '/dashboard',
-        icon: BookX,
+        title: 'Annonces',
+        href: '/department-chiefs/annonces',
+        icon: Megaphone,
     },
     {
-        title: 'Annonces',
-        href: '/students/annonces',
-        icon: Megaphone,
+        title: 'Etudiants en Difficulté',
+        href: '/admins/type-utilisateur',
+        icon: TriangleAlert,
     },
 ];
 
 
-export function AppStudentSidebar() {
+export function AppEnseignantSidebar() {
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -62,7 +69,7 @@ export function AppStudentSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavUser />
+                <NavEnseignant/>
             </SidebarFooter>
         </Sidebar>
     );

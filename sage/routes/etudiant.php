@@ -15,4 +15,6 @@ Route::middleware(['auth', 'verified', 'role:etudiant'])->group(function () {
     Route::get('/students/pedagogie/{module}', [StudentController::class, 'showTypes'])->name('pedagogie.module');
     Route::get('/students/pedagogie/{module}/{type}', [StudentController::class, 'showDocument'])->name('pedagogie.document');
     Route::get('/students/notes/{semestre}', [StudentController::class, 'showNote'])->name('note.semestre');
+    //annonce
+    Route::get('/students/annonces', [StudentController::class, 'annonces'])->name('students.annonces');
 });

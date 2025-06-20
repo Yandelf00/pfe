@@ -47,6 +47,27 @@ class ProfileController extends Controller
     }
 
     /**
+     * Show the admin's profile settings page.
+     */
+    public function editDepChief(Request $request): Response
+    {
+        return Inertia::render('department-chiefs/settings/profile', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => $request->session()->get('status'),
+        ]);
+    }
+    /**
+     * Show the admin's profile settings page.
+     */
+    public function editEnseignant(Request $request): Response
+    {
+        return Inertia::render('professors/settings/profile', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => $request->session()->get('status'),
+        ]);
+    }
+
+    /**
      * Update the user's profile settings.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse

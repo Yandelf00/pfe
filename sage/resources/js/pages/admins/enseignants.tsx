@@ -41,11 +41,11 @@ export default function Enseignants()
                     <div className="flex flex-row gap-4">
                         <ImportEnseignants/>
                         {isList ? (
-                            <button onClick={()=>setIsList(false)} className="h-8 cursor-pointer text-white w-24 px-4 rounded bg-black dark:bg-white dark:text-black">
+                            <button onClick={()=>setIsList(false)} className="h-8 cursor-pointer text-white w-24 px-4 rounded bg-linear-to-bl text-white py-1 from-[#6169c6] to-[#6d4798] ">
                                 Ajouter
                             </button>
                         ):(
-                            <button onClick={()=>setIsList(true)} className="h-8 cursor-pointer text-white w-24 px-4 rounded bg-black dark:bg-white dark:text-black">
+                            <button onClick={()=>setIsList(true)} className="h-8 cursor-pointer text-white w-24 px-4 rounded bg-linear-to-bl text-white py-1 from-[#6169c6] to-[#6d4798] ">
                                 Liste
                             </button>
                         )}
@@ -271,7 +271,6 @@ function AfficherEnseignant({ search } : { search : string })
 
     //function that deletes the desired chef
     function deleteEnseignant(profId : number){
-        console.log("im here")
         router.delete(route('admins.deleteEnseignant', profId), {
             preserveScroll: true,
             onSuccess: () => {
@@ -318,7 +317,7 @@ function AfficherEnseignant({ search } : { search : string })
                                               </DialogDescription>
                                                 <div className="w-full h-full flex flex-col gap-4">
                                                     <p className="">
-                                                        Est ce que vous êtes sur de vouloir supprimer le chef de departement ?
+                                                        Est ce que vous êtes sur de vouloir supprimer l'enseignant?
                                                     </p>
                                                     <div className="w-full flex flex-row justify-end items-center gap-3">
                                                         <DialogClose asChild>
@@ -369,7 +368,7 @@ function ImportEnseignants()
             <Dialog>
               <DialogTrigger asChild>
                 <button className="bg-black h-8 text-white px-4 rounded w-24 cursor-pointer
-                dark:bg-white dark:text-black">
+   bg-linear-to-bl text-white py-1 from-[#6169c6] to-[#6d4798]">
                     Importer
                 </button>
               </DialogTrigger>
@@ -570,7 +569,7 @@ function AjouterEnseignant()
                     <button
                         type="submit"
                         disabled={processing}
-                        className="bg-black cursor-pointer w-48 mt-3 text-white px-4 py-2 rounded disabled:opacity-50 dark:bg-white dark:text-black"
+                        className="bg-black cursor-pointer w-48 mt-3 text-white px-4 py-2 rounded disabled:opacity-50 bg-linear-to-bl text-white py-1 from-[#6169c6] to-[#6d4798] "
                     >
                         Enregistrer
                     </button>

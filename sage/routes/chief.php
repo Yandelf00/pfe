@@ -21,4 +21,21 @@ Route::middleware(['auth', 'verified', 'role:department_chief'])->group(function
 
     //--------------calendrier--------------//
     Route::get('/department-chiefs/calendrier', [ChefController::class, 'calendrier'])->name('depchiefs.calendrier');
+
+    //--------------g-enseignants--------------//
+    Route::get('/department-chiefs/gestion_enseignants', [ChefController::class, 'gestionEnseignants'])->name('depchiefs.gestion_enseignants');
+
+    //--------------g-etudiants--------------//
+    Route::get('/department-chiefs/gestion_etudiants', [ChefController::class, 'gestionEtudiants'])->name('depchiefs.gestion_etudiants');
+
+    //--------------emploi du temps--------------//
+    Route::get('/department-chiefs/emploi_de_temps', [ChefController::class, 'emploiTemps'])->name('depchiefs.emploi_de_temps');
+
+    //--------------notifications--------------//
+    Route::get('/department-chiefs/notifications', [ChefController::class, 'notifications'])->name('depchiefs.notifications');
+
+    //--------------modules--------------//
+    Route::get('/department-chiefs/modules', [ChefController::class, 'modules'])->name('depchiefs.modules');
+
 });
+
