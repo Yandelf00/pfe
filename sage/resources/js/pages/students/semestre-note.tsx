@@ -12,8 +12,16 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function SemestreNote()
 {
-    const { results } = usePage().props;
-    console.log(results)
+    // const { results } = usePage().props;
+
+    const results = [
+      { module: "Programmation II", note: 14 },
+      { module: "Structures de données", note: 16 },
+      { module: "Système d'Exploitation II", note: 12 },
+      { module: "Analyse Numérique I", note: 13 },
+      { module: "Architecture des Ordinateurs", note: 15 },
+      { module: "Électromagnétisme", note: 11 },
+    ];
     return(
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Notes" />
@@ -22,7 +30,7 @@ export default function SemestreNote()
                     <p className="text-gray-500">Aucun note à afficher.</p>
                 </div>
             ) : (
-                <div className="overflow-x-auto shadow-md">
+                <div className="overflow-x-auto shadow-md h-full w-full py-10 ">
                   <table className="min-w-full ">
                     <thead className="bg-gray-100 dark:bg-[#1f1f1f]">
                       <tr>
@@ -31,6 +39,9 @@ export default function SemestreNote()
                         </th>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                           Note
+                        </th>
+                        <th className="px-6 py-3 text-sm text-center font-semibold text-gray-700 dark:text-gray-300">
+                          Resultat
                         </th>
                       </tr>
                     </thead>
@@ -42,6 +53,9 @@ export default function SemestreNote()
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                             {res.note}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900 dark:text-gray-100">
+                            {res.note > 10 ? "V" : "Ratt"}
                           </td>
                         </tr>
                       ))}

@@ -6,7 +6,7 @@ import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid,
 BookCopy, UserRoundCog, GraduationCap, User, UserPlus,
-CalendarDays, Calendar, Megaphone, TriangleAlert} from 'lucide-react';
+CalendarDays, FileStack, BookCheck, Calendar, Megaphone, TriangleAlert} from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -16,33 +16,33 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'sdqslmkdjfmslj ml',
-        href: '/department-chiefs/gestion_etudiants',
+        title: 'Etudiants',
+        href: '/professors/etudiants',
         icon: GraduationCap,
     },
     {
-        title: 'Gestion Enseignants',
-        href: '/department-chiefs/gestion_enseignants',
-        icon: User,
+        title: 'Notes',
+        href: '/professors/notes',
+        icon: BookCheck,
     },
     {
-        title: 'Emploi du Temps',
-        href: '/department-chiefs/emploi_de_temps',
-        icon: CalendarDays,
+        title: 'Documents',
+        href: '/professors/documents',
+        icon: FileStack ,
     },
     {
         title: 'Calendrier',
-        href: '/department-chiefs/calendrier',
+        href: '/professors/calendrier',
         icon: Calendar,
     },
     {
         title: 'Annonces',
-        href: '/department-chiefs/annonces',
+        href: '/professors/annonces',
         icon: Megaphone,
     },
     {
-        title: 'Etudiants en Difficulté',
-        href: '/admins/type-utilisateur',
+        title: 'Absences',
+        href: '/professors/absences',
         icon: TriangleAlert,
     },
 ];

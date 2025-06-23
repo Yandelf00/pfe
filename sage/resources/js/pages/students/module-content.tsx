@@ -44,8 +44,9 @@ export default function ModuleContent()
                             <a
                                 href={`/storage/${doc.fichier}`}
                                 download
-                                className="px-4 py-2 bg-green-600 text-white
-                                rounded-full hover:bg-green-700 transition
+                                className="px-4 py-2 text-white
+                                bg-gradient-to-bl from-[#6169c6] to-[#6d4798]
+                                rounded-full cursor-pointer transition
                                 ease-in-out duration-200"
                             >
                                 Télécharger

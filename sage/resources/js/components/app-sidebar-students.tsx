@@ -4,7 +4,8 @@ import { NavUser } from '@/components/nav-student';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Megaphone, Folder, LayoutGrid, BookCopy, GraduationCap, Calendar, BookX} from 'lucide-react';
+import { BookOpen, Megaphone, Folder, LayoutGrid, BookCopy,
+GraduationCap, CalendarDays, Calendar, BookX} from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -14,7 +15,7 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Pédagogie',
+        title: 'Contenu Pédagogique',
         href: '/students/pedagogie',
         icon: BookCopy,
     },
@@ -24,13 +25,18 @@ const mainNavItems: NavItem[] = [
         icon: GraduationCap,
     },
     {
+        title: 'Emploi du Temps',
+        href: '/students/emploi_de_temps',
+        icon: CalendarDays,
+    },
+    {
         title: 'Calendrier',
-        href: '/dashboard',
+        href: '/students/calendrier',
         icon: Calendar,
     },
     {
         title: 'Absences',
-        href: '/dashboard',
+        href: '/students/absences',
         icon: BookX,
     },
     {

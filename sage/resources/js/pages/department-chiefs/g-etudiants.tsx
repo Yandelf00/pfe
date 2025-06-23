@@ -1,4 +1,3 @@
-
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/chef-layout';
 import { type BreadcrumbItem } from '@/types';
@@ -549,7 +548,8 @@ function AfficherEtudiants({ search } : {search : string }) {
     const etudiants = props.etudiants;
 
     const filteredEtudiants = etudiants.filter((etudiant) => {
-        const fullText = `${etudiant.name} ${etudiant.prenom} ${etudiant.email} ${etudiant.departement} ${etudiant.cin} ${etudiant.profile.numt} ${etudiant.profile.cne}`.toLowerCase();
+        const profileData = etudiant.profile || {};
+        const fullText = `${etudiant.name} ${etudiant.prenom} ${etudiant.email} ${etudiant.departement} ${etudiant.cin} ${profileData.numt || ''} ${profileData.cne || ''}`.toLowerCase();
         return fullText.includes(search.toLowerCase());
     });
 

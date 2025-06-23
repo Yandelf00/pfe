@@ -15,40 +15,20 @@ import {
 
 export default function ChefSidebarLayout({ children, breadcrumbs = [] }: PropsWithChildren<{ breadcrumbs?: BreadcrumbItem[] }>)
 {
-
     const notifs = [
       {
         id: 1,
-        message: "Nouvelle annonce publiée dans votre filière.",
         type: "important",
-        date_envoi: "2025-06-18",
+        message: "Validation requise : publication du planning des examens.",
+        date_envoi: "2025-06-22",
       },
       {
         id: 2,
-        message: "Vous avez un nouveau message du chef de département.",
-        type: "message",
-        date_envoi: "2025-06-17",
-      },
-      {
-        id: 3,
-        message: "Une erreur a été détectée dans votre formulaire.",
         type: "alert",
-        date_envoi: "2025-06-16",
-      },
-      {
-        id: 4,
-        message: "Le calendrier des examens a été mis à jour.",
-        type: "important",
-        date_envoi: "2025-06-15",
-      },
-      {
-        id: 5,
-        message: "Votre demande a été acceptée.",
-        type: "message",
-        date_envoi: "2025-06-14",
+        message: "Absence signalée : M. El Amrani (Analyse Numérique) — 3 jours.",
+        date_envoi: "2025-06-21",
       },
     ];
-
     return (
         <AppShell variant="sidebar" class="relative">
             <AppChefSidebar />

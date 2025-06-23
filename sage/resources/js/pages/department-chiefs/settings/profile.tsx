@@ -22,14 +22,21 @@ const breadcrumbs: BreadcrumbItem[] = [
 type ProfileForm = {
     name: string;
     email: string;
+    prenom : string;
+    address : string;
+    cin : string;
 }
 
 export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) {
     const { auth } = usePage<SharedData>().props;
 
+    console.log(auth)
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<Required<ProfileForm>>({
         name: auth.user.name,
         email: auth.user.email,
+        prenom:auth.user.prenom,
+        address : auth.user.address,
+        cin : auth.user.cin,
     });
 
     const submit: FormEventHandler = (e) => {
@@ -39,6 +46,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             preserveScroll: true,
         });
     };
+    console.log("this is address", data.cin);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -50,7 +58,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="name">Name</Label>
+                            <Label htmlFor="name">Nom</Label>
 
                             <Input
                                 id="name"
@@ -63,6 +71,22 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                             />
 
                             <InputError className="mt-2" message={errors.name} />
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label htmlFor="name">Prenom</Label>
+
+                            <Input
+                                id="name"
+                                className="mt-1 block w-full"
+                                value={data.prenom}
+                                onChange={(e) => setData('prenom', e.target.value)}
+                                required
+                                autoComplete="prenom"
+                                placeholder="prenom"
+                            />
+
+                            <InputError className="mt-2" message={errors.prenom} />
                         </div>
 
                         <div className="grid gap-2">
@@ -103,6 +127,36 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                                 )}
                             </div>
                         )}
+                        <div className="grid gap-2">
+                            <Label htmlFor="email">addresse</Label>
+
+                            <Input
+                                id="address"
+                                type="text"
+                                className="mt-1 block w-full"
+                                value={data.address}
+                                onChange={(e) => setData('address', e.target.value)}
+                                required
+                                autoComplete="address"
+                                placeholder="address"
+                            />
+
+                            <InputError className="mt-2" message={errors.address} />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="cin">CIN</Label>
+                            <Input
+                                id="cin"
+                                type="text"
+                                className="mt-1 block w-full"
+                                value=""
+                                onChange={(e) => setData('cin', e.target.value)}
+                                required
+                                autoComplete="cin"
+                                placeholder="CIN"
+                            />
+                            <InputError className="mt-2" message={errors.cin} />
+                        </div>
 
                         <div className="flex items-center gap-4">
                             <Button disabled={processing}>Save</Button>

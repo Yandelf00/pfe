@@ -100,4 +100,16 @@ class StudentController extends Controller
         ]);
     }
 
+    public function calendrier() {
+        return Inertia::render('students/calendar');
+    }
+
+    public function emploiTemps() {
+        return Inertia::render('students/emploi_temps');
+    }
+
+    public function absences() {
+        return Inertia::render('students/absences');
+    }
+
 }

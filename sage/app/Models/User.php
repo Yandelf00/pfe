@@ -34,6 +34,18 @@ class User extends Authenticatable
         'profile_type',
     ];
 
+    /* protected $visible = [ */
+    /*     'id', */
+    /*     'name', */
+    /*     'email', */
+    /*     'prenom', */
+    /*     'departement', */
+    /*     'cin', */
+    /*     'address', */
+    /*     'date_naissance', */
+    /*     'photo', */
+    /*     'number', */
+    /* ]; */
     /**
      * The attributes that should be hidden for serialization.
      *
